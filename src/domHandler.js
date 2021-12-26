@@ -1,11 +1,16 @@
 import { format, fromUnixTime } from 'date-fns';
 import { fetchCurrentWeather } from './weatherAPI';
+import { ctof, ftoc } from './unitConverter';
 import { fetchPhoto } from './unplashAPI';
 
 const DOMHandler = (() => {
   let currentWeatherData = {};
+  let currentUnit = '°C';
 
+  const { body } = document;
   const searchForm = document.getElementById('city-form');
+  const unit = document.querySelector('.units button');
+
   const location = document.getElementById('location');
   const temp = document.getElementById('temp');
   const weatherConditionIcon = document.querySelector('.weather-condition-icon');
@@ -20,10 +25,10 @@ const DOMHandler = (() => {
 
   const updateCurrentWeather = (data) => {
     location.innerText = `${data.name}, ${data.sys.country}`;
-    temp.innerText = `${Math.round(data.main.temp)}°C`;
-    highTemp.innerText = `${Math.round(data.main.temp_max)}°C`;
-    lowTemp.innerText = `${Math.round(data.main.temp_min)}°C`;
-    feelsLike.innerText = `${Math.round(data.main.feels_like)}°C`;
+    temp.innerText = `${Math.round(data.main.temp)}${currentUnit}`;
+    highTemp.innerText = `${Math.round(data.main.temp_max)}${currentUnit}`;
+    lowTemp.innerText = `${Math.round(data.main.temp_min)}${currentUnit}`;
+    feelsLike.innerText = `${Math.round(data.main.feels_like)}${currentUnit}`;
     weatherConditionIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     weatherCondition.innerText = `${data.weather[0].main}`;
     sunrise.innerText = `${format(fromUnixTime(data.sys.sunrise), 'H:mm a')}`;
@@ -32,12 +37,41 @@ const DOMHandler = (() => {
     windspeed.innerText = `${data.wind.speed}m/s`;
   };
 
+  const updateUnit = () => {
+    temp.innerText = `${Math.round(currentWeatherData.main.temp)}${currentUnit}`;
+    highTemp.innerText = `${Math.round(currentWeatherData.main.temp_max)}${currentUnit}`;
+    lowTemp.innerText = `${Math.round(currentWeatherData.main.temp_min)}${currentUnit}`;
+    feelsLike.innerText = `${Math.round(currentWeatherData.main.feels_like)}${currentUnit}`;
+  };
+
   const render = (data) => {
     updateCurrentWeather(data);
 
-    fetchPhoto(`${data.weather[0].main}%20sky`).then((photoData) => {
-      document.body.style.backgroundImage = `url(${photoData.results[0].urls.full})`;
+    fetchPhoto(data.name).then((photoData) => {
+      body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
     });
+  };
+
+  const changeUnit = () => {
+    const dataUnit = unit.getAttribute('data-unit');
+
+    if (dataUnit === 'celsius') {
+      currentWeatherData.main.temp = ctof(currentWeatherData.main.temp);
+      currentWeatherData.main.temp_max = ctof(currentWeatherData.main.temp_max);
+      currentWeatherData.main.temp_min = ctof(currentWeatherData.main.temp_min);
+      currentWeatherData.main.feels_like = ctof(currentWeatherData.main.feels_like);
+
+      unit.setAttribute('data-unit', 'fahrenheit');
+      currentUnit = '℉';
+    } else {
+      currentWeatherData.main.temp = ftoc(currentWeatherData.main.temp);
+      currentWeatherData.main.temp_max = ftoc(currentWeatherData.main.temp_max);
+      currentWeatherData.main.temp_min = ftoc(currentWeatherData.main.temp_min);
+      currentWeatherData.main.feels_like = ftoc(currentWeatherData.main.feels_like);
+
+      unit.setAttribute('data-unit', 'celsius');
+      currentUnit = '°C';
+    }
   };
 
   const load = () => {
@@ -56,6 +90,12 @@ const DOMHandler = (() => {
       }).catch(alert);
 
       searchForm.cityKeyword.value = '';
+    });
+
+    unit.addEventListener('click', () => {
+      changeUnit();
+      unit.innerText = currentUnit;
+      updateUnit();
     });
   };
 

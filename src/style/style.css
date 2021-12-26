@@ -21,16 +21,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(206, 206, 206);
+  background-color: rgb(255, 189, 189);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  color: #fff;
 }
 
 /* Content */
 .content {
   width: 95%;
-  max-width: 25em;
+  max-width: 22em;
   margin: 1em auto;
 
   display: flex;
@@ -50,11 +51,11 @@ body {
 #city-keyword {
   flex-grow: 2;
   border-radius: 1em;
-  border: 1px solid #a5a5a5;
+  border: none;
 }
 
 input[type="text"] {
-  outline-color: #b5b5b5;
+  outline-color: #a7a7a7;
   font-size: 0.7em;
   padding: 0.5em 1em;
 }
@@ -67,12 +68,31 @@ input[type="text"] {
   background-color: transparent;
 }
 
+/* Units Div */
+.units {
+  align-self: flex-start;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.411);
+}
+
+.units button {
+  margin-left: 4px;
+  padding: 4px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.055);
+  color: #fff;
+}
+
+.units button:hover {
+  background-color: rgba(0, 0, 0, 0.452);
+}
+
 /* Main Forecast Div */
 .main-forecast {
-  font-size: 85%;
-  color: #000;
+  font-size: 80%;
+  color: #fff;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.226);
+  background-color: rgba(0, 0, 0, 0.055);
   backdrop-filter: blur(10px);
   border-radius: 0.8em;
 
@@ -97,8 +117,12 @@ input[type="text"] {
   align-items: flex-start;
 }
 
+.hl {
+  font-size: 85%;
+}
+
 #temp {
-  font-size: 2em;
+  font-size: 3em;
   font-weight: 900;
 }
 
@@ -120,6 +144,7 @@ div > span {
 /* Sub Info */
 .sub-info {
   flex-grow: 1;
+  justify-self: flex-end;
 
   display: flex;
   flex-direction: column;
