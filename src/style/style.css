@@ -21,7 +21,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(255, 83, 83);
+  background-color: rgb(206, 206, 206);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 /* Content */
@@ -67,7 +70,7 @@ input[type="text"] {
 /* Main Forecast Div */
 .main-forecast {
   font-size: 85%;
-  color: rgb(255, 255, 255);
+  color: #000;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.226);
   backdrop-filter: blur(10px);

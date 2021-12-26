@@ -1,5 +1,6 @@
 import { format, fromUnixTime } from 'date-fns';
 import { fetchCurrentWeather } from './weatherAPI';
+import { fetchPhoto } from './unplashAPI';
 
 const DOMHandler = (() => {
   let currentWeatherData = {};
@@ -18,7 +19,6 @@ const DOMHandler = (() => {
   const windspeed = document.getElementById('windspeed');
 
   const updateCurrentWeather = (data) => {
-    console.log(data);
     location.innerText = `${data.name}, ${data.sys.country}`;
     temp.innerText = `${Math.round(data.main.temp)}°C`;
     highTemp.innerText = `${Math.round(data.main.temp_max)}°C`;
@@ -32,18 +32,27 @@ const DOMHandler = (() => {
     windspeed.innerText = `${data.wind.speed}m/s`;
   };
 
+  const render = (data) => {
+    updateCurrentWeather(data);
+
+    fetchPhoto(`${data.weather[0].main}%20sky`).then((photoData) => {
+      document.body.style.backgroundImage = `url(${photoData.results[0].urls.full})`;
+    });
+  };
+
   const load = () => {
     fetchCurrentWeather('london').then((data) => {
       currentWeatherData = data;
-      updateCurrentWeather(currentWeatherData);
-    }).catch(alert);
+      render(currentWeatherData);
+    }).catch(console.log);
+
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const keyword = searchForm.cityKeyword.value;
 
       fetchCurrentWeather(keyword).then((data) => {
         currentWeatherData = data;
-        updateCurrentWeather(currentWeatherData);
+        render(currentWeatherData);
       }).catch(alert);
 
       searchForm.cityKeyword.value = '';
