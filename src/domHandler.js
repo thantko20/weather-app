@@ -26,21 +26,27 @@ const DOMHandler = (() => {
     feelsLike.innerText = `${Math.round(data.main.feels_like)}°C`;
     weatherConditionIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     weatherCondition.innerText = `${data.weather[0].main}`;
-    sunrise.innerText = `${format(fromUnixTime(data.sys.sunrise), 'H:m a')}`;
-    sunset.innerText = `${format(fromUnixTime(data.sys.sunset), 'H:m a')}`;
+    sunrise.innerText = `${format(fromUnixTime(data.sys.sunrise), 'H:mm a')}`;
+    sunset.innerText = `${format(fromUnixTime(data.sys.sunset), 'H:mm a')}`;
     humidity.innerText = `${data.main.humidity}%`;
     windspeed.innerText = `${data.wind.speed}m/s`;
   };
 
   const load = () => {
+    fetchCurrentWeather('london').then((data) => {
+      currentWeatherData = data;
+      updateCurrentWeather(currentWeatherData);
+    }).catch(alert);
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const keyword = searchForm.cityKeyword.value;
-      // eslint-disable-next-line max-len
+
       fetchCurrentWeather(keyword).then((data) => {
         currentWeatherData = data;
         updateCurrentWeather(currentWeatherData);
       }).catch(alert);
+
+      searchForm.cityKeyword.value = '';
     });
   };
 
