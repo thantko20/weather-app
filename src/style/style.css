@@ -67,7 +67,7 @@ input[type="text"] {
 /* Main Forecast Div */
 .main-forecast {
   font-size: 85%;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   width: 100%;
   background-color: rgba(255, 255, 255, 0.226);
   backdrop-filter: blur(10px);
@@ -96,12 +96,17 @@ input[type="text"] {
 
 #temp {
   font-size: 2em;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .weather-condition-icon {
   width: 4.5em;
   height: auto;
+}
+
+#weather-condition {
+  font-size: 80%;
+  font-weight: 600;
 }
 
 div > span {
