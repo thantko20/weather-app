@@ -1,4 +1,4 @@
-import WeatherAPI from './weatherAPI';
+import { fetchCurrentWeather } from './weatherAPI';
 
 const DOMHandler = (() => {
   const load = () => {
@@ -9,8 +9,8 @@ const DOMHandler = (() => {
       e.preventDefault();
       const keyword = searchForm.cityKeyword.value;
       // eslint-disable-next-line max-len
-      WeatherAPI.fetchCurrentWeather(keyword).then((data) => {
-        console.log(data.date);
+      fetchCurrentWeather(keyword).then((data) => {
+        // We need to do something here
       });
     });
   };
