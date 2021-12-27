@@ -24,50 +24,52 @@ const DOMHandler = (() => {
   const windspeed = document.getElementById('windspeed');
 
   const updateCurrentWeather = (data) => {
-    location.innerText = `${data.name}, ${data.sys.country}`;
-    temp.innerText = `${Math.round(data.main.temp)}${currentUnit}`;
-    highTemp.innerText = `${Math.round(data.main.temp_max)}${currentUnit}`;
-    lowTemp.innerText = `${Math.round(data.main.temp_min)}${currentUnit}`;
-    feelsLike.innerText = `${Math.round(data.main.feels_like)}${currentUnit}`;
-    weatherConditionIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-    weatherCondition.innerText = `${data.weather[0].main}`;
-    sunrise.innerText = `${format(fromUnixTime(data.sys.sunrise), 'H:mm a')}`;
-    sunset.innerText = `${format(fromUnixTime(data.sys.sunset), 'H:mm a')}`;
-    humidity.innerText = `${data.main.humidity}%`;
-    windspeed.innerText = `${data.wind.speed}m/s`;
+    location.innerText = data.location;
+    temp.innerText = `${data.temp}${currentUnit}`;
+    highTemp.innerText = `${data.temp_max}${currentUnit}`;
+    lowTemp.innerText = `${data.temp_min}${currentUnit}`;
+    feelsLike.innerText = `${data.feelsLike}${currentUnit}`;
+    weatherConditionIcon.src = data.weatherConditionIcon;
+    weatherCondition.innerText = data.weatherCondition;
+    sunrise.innerText = data.sunrise;
+    sunset.innerText = data.sunset;
+    humidity.innerText = `${data.humidity}%`;
+    windspeed.innerText = `${data.windspeed}m/s`;
   };
 
   const updateUnit = () => {
-    temp.innerText = `${Math.round(currentWeatherData.main.temp)}${currentUnit}`;
-    highTemp.innerText = `${Math.round(currentWeatherData.main.temp_max)}${currentUnit}`;
-    lowTemp.innerText = `${Math.round(currentWeatherData.main.temp_min)}${currentUnit}`;
-    feelsLike.innerText = `${Math.round(currentWeatherData.main.feels_like)}${currentUnit}`;
+    temp.innerText = `${Math.round(currentWeatherData.temp)}${currentUnit}`;
+    highTemp.innerText = `${Math.round(currentWeatherData.temp_max)}${currentUnit}`;
+    lowTemp.innerText = `${Math.round(currentWeatherData.temp_min)}${currentUnit}`;
+    feelsLike.innerText = `${Math.round(currentWeatherData.feelsLike)}${currentUnit}`;
   };
 
   const render = (data) => {
     updateCurrentWeather(data);
 
-    fetchPhoto(data.name).then((photoData) => {
-      body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
-    });
+    // fetchPhoto(data.name).then((photoData) => {
+    //   body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
+    // }).catch(() => {
+    //   body.style.backgroundImage = 'url(../assets/default_bg.jpg)';
+    // });
   };
 
   const changeUnit = () => {
     const dataUnit = unit.getAttribute('data-unit');
 
     if (dataUnit === 'celsius') {
-      currentWeatherData.main.temp = ctof(currentWeatherData.main.temp);
-      currentWeatherData.main.temp_max = ctof(currentWeatherData.main.temp_max);
-      currentWeatherData.main.temp_min = ctof(currentWeatherData.main.temp_min);
-      currentWeatherData.main.feels_like = ctof(currentWeatherData.main.feels_like);
+      currentWeatherData.temp = ctof(currentWeatherData.temp);
+      currentWeatherData.temp_max = ctof(currentWeatherData.temp_max);
+      currentWeatherData.temp_min = ctof(currentWeatherData.temp_min);
+      currentWeatherData.feelsLike = ctof(currentWeatherData.feelsLike);
 
       unit.setAttribute('data-unit', 'fahrenheit');
       currentUnit = '℉';
     } else {
-      currentWeatherData.main.temp = ftoc(currentWeatherData.main.temp);
-      currentWeatherData.main.temp_max = ftoc(currentWeatherData.main.temp_max);
-      currentWeatherData.main.temp_min = ftoc(currentWeatherData.main.temp_min);
-      currentWeatherData.main.feels_like = ftoc(currentWeatherData.main.feels_like);
+      currentWeatherData.temp = ftoc(currentWeatherData.temp);
+      currentWeatherData.temp_max = ftoc(currentWeatherData.temp_max);
+      currentWeatherData.temp_min = ftoc(currentWeatherData.temp_min);
+      currentWeatherData.feelsLike = ftoc(currentWeatherData.feelsLike);
 
       unit.setAttribute('data-unit', 'celsius');
       currentUnit = '°C';
