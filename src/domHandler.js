@@ -1,4 +1,3 @@
-// import { format, fromUnixTime } from 'date-fns';
 import { fetchCurrentWeather } from './weatherAPI';
 import { ctof, ftoc } from './unitConverter';
 import { fetchPhoto } from './unplashAPI';
