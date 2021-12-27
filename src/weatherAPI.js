@@ -5,11 +5,11 @@ const fetchCurrentWeather = async (keyword) => {
   const data = await response.json();
 
   return {
-    temp: Math.round(data.main.temp),
-    feelsLike: Math.round(data.main.feels_like),
+    temp: data.main.temp,
+    feelsLike: data.main.feels_like,
     humidity: data.main.humidity,
-    temp_max: Math.round(data.main.temp_max),
-    temp_min: Math.round(data.main.temp_min),
+    temp_max: data.main.temp_max,
+    temp_min: data.main.temp_min,
     windspeed: data.wind.speed,
     country: data.sys.country,
     cityName: data.name,
@@ -18,6 +18,7 @@ const fetchCurrentWeather = async (keyword) => {
     weatherCondition: data.weather[0].main,
     sunrise: format(fromUnixTime(data.sys.sunrise), 'H:mm a'),
     sunset: format(fromUnixTime(data.sys.sunset), 'H:mm a'),
+    temp_unit: '°C',
   };
 };
 
