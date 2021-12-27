@@ -74,6 +74,17 @@ input[type="text"] {
   background-color: rgba(0, 0, 0, 0.267);
 }
 
+/* Main Forecast Div */
+.main-forecast {
+  font-size: 80%;
+  color: #fff;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.288);
+  border-radius: 0.8em;
+
+  padding: 0.8em;
+}
+
 /* Units Div */
 .unit {
   position: absolute;
@@ -91,16 +102,11 @@ input[type="text"] {
   color: #e7e7e7;
 }
 
-/* Main Forecast Div */
-.main-forecast {
-  font-size: 80%;
-  color: #fff;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.055);
-  backdrop-filter: blur(10px);
-  border-radius: 0.8em;
-
-  padding: 0.8em;
+@supports (backdrop-filter: none) {
+  .main-forecast {
+    background-color: rgba(0, 0, 0, 0.055);
+    backdrop-filter: blur(10px);
+  }
 }
 
 #location {
