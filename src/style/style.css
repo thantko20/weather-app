@@ -26,6 +26,7 @@ body {
   background-attachment: fixed;
   background-position: center;
   color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.37);
 }
 
 /* Content */
@@ -96,7 +97,6 @@ input[type="text"] {
   color: #fff;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.055);
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(10px);
   border-radius: 0.8em;
 
@@ -153,4 +153,21 @@ div > span {
   display: flex;
   flex-direction: column;
   gap: 0.6em;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+footer a {
+  color: chocolate;
+  text-shadow: none;
+}
+
+footer a:hover {
+  text-shadow: inherit;
+  color: white;
 }
