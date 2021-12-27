@@ -7,7 +7,44 @@
   <title>Weather App</title>
 </head>
 <body>
+
+  <div class="content">
+    <form id="city-form">
+      <input type="text" id="city-keyword" name="cityKeyword" required placeholder="Enter City Name" aria-placeholder="enter city name">
+      <button type="submit">Go</button>
+    </form>
   
+    <div class="main-forecast">
+      <h1 id="location"></h1>
+
+      <button class="unit" data-current-unit="°C">Change Unit</button>
+
+      <div class="info-container">
+
+        <div class="main-info">
+          <div id="temp"></div>
+          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather-condition" class="weather-condition-icon">
+          <div id="weather-condition"></div>
+          <div class="hl">High: <span id="high"></span> | Low: <span id="low"></span></div>
+        </div>
+
+        <div class="sub-info">
+          <div>Feels like <span id="feels-like"></span></div>
+          <div>Sunrise: <span id="sunrise"></span></div>
+          <div>Sunset: <span id="sunset"></span></div>
+          <div>Humidity: <span id="humidity"></span></div>
+          <div>Windspeed: <span id="windspeed"></span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Weather info is from <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap API</a></div>
+    <div>Photos are from <a href="https://unsplash.com/developers" target="_blank">Unplash API</a></div>
+    <div>Created By <a href="https://github.com/thantko20" target="_blank">Thant Ko Zaw</a></div>
+  </footer>
 
   <script src="main.js"></script>
 </body>
