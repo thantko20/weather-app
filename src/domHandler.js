@@ -1,7 +1,7 @@
 // import { format, fromUnixTime } from 'date-fns';
 import { fetchCurrentWeather } from './weatherAPI';
 import { ctof, ftoc } from './unitConverter';
-// import { fetchPhoto } from './unplashAPI';
+import { fetchPhoto } from './unplashAPI';
 
 const DOMHandler = (() => {
   let currentWeatherData = {};
@@ -39,11 +39,11 @@ const DOMHandler = (() => {
   const render = () => {
     updateCurrentWeather();
 
-    // fetchPhoto(currentWeatherData.name).then((photoData) => {
-    //   body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
-    // }).catch(() => {
-    //   body.style.backgroundImage = 'url(../assets/default_bg.jpg)';
-    // });
+    fetchPhoto(currentWeatherData.name).then((photoData) => {
+      body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
+    }).catch(() => {
+      body.style.backgroundImage = 'url(../assets/default_bg.jpg)';
+    });
   };
 
   const changeUnit = () => {

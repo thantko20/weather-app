@@ -21,7 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(156, 156, 156);
+  background-color: rgb(255, 188, 171);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -61,11 +61,16 @@ input[type="text"] {
 }
 
 #city-form button {
-  padding: 0;
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+  color: #fff;
 
   border: none;
-  cursor: pointer;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.055);
+}
+
+#city-form button:hover {
+  background-color: rgba(0, 0, 0, 0.267);
 }
 
 /* Units Div */
@@ -78,6 +83,7 @@ input[type="text"] {
   font-size: 80%;
   color: #616161;
   background-color: transparent;
+  text-shadow: none;
 }
 
 .unit:hover {
@@ -90,6 +96,7 @@ input[type="text"] {
   color: #fff;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.055);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(10px);
   border-radius: 0.8em;
 
