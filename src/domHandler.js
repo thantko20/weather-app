@@ -39,7 +39,7 @@ const DOMHandler = (() => {
   const render = () => {
     updateCurrentWeather();
 
-    fetchPhoto(currentWeatherData.name).then((photoData) => {
+    fetchPhoto(currentWeatherData.cityName).then((photoData) => {
       body.style.backgroundImage = `url(${photoData.results[Math.floor(Math.random() * 10)].urls.full})`;
     }).catch(() => {
       body.style.backgroundImage = 'url(../assets/default_bg.jpg)';
@@ -69,11 +69,16 @@ const DOMHandler = (() => {
     updateCurrentWeather();
   };
 
+  const handleWeatherError = () => {
+    // eslint-disable-next-line no-alert
+    alert('Wrong city name input or something went wrong with our servers.');
+  };
+
   const load = () => {
     fetchCurrentWeather('london').then((data) => {
       currentWeatherData = data;
-      render(currentWeatherData);
-    }).catch(console.log);
+      render();
+    }).catch(handleWeatherError);
 
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -82,7 +87,7 @@ const DOMHandler = (() => {
       fetchCurrentWeather(keyword).then((data) => {
         currentWeatherData = data;
         render(currentWeatherData);
-      }).catch(alert);
+      }).catch(handleWeatherError);
 
       searchForm.cityKeyword.value = '';
     });
